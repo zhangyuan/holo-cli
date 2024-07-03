@@ -1,0 +1,32 @@
+BEGIN;
+{{- $length := len .Columns -}}
+{{- $tableName := .TableName }}
+{{- $primaryKeys := .PrimaryKeys }}
+
+{{- if .SchemaName }}
+{{ $tableName = printf "%s.\"%s\"" .SchemaName .TableName }}
+{{- end }}
+
+CREATE TABLE {{ $tableName }} (
+    {{- range $idx, $column := .Columns }}
+    "{{ $column.Name }}" {{ $column.DataType }}{{ if not (isLast $idx $length) }},{{end -}}
+    {{- end }}{{ if $primaryKeys }},
+    PRIMARY KEY ({{ $primaryKeys | join "," }}) {{ end }}
+);
+
+{{- if .Description }}
+COMMENT ON TABLE {{ $tableName }} IS '{{ .Description }}';
+{{- end }}
+
+CALL set_table_property('{{ $tableName }}', 'orientation', 'column');
+CALL set_table_property('{{ $tableName }}', 'storage_format', 'orc');
+{{- if .DistributionKeys }}
+CALL set_table_property('{{ $tableName }}', 'distribution_key', '{{ .DistributionKeys | join ","}}');
+{{- end }}
+CALL set_table_property('{{ $tableName }}', 'table_storage_mode', 'hot');
+CALL set_table_property('{{ $tableName }}', 'time_to_live_in_seconds', '3153600000');
+{{ range $idx, $column := .Columns }}
+COMMENT ON COLUMN {{ $tableName }}."{{ $column.Name }}" IS '{{ $column.Comment }}';
+{{- end }}
+
+END;
