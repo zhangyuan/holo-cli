@@ -35,13 +35,13 @@ var copyFromCsvCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(copyFromCsvCmd)
 
-	copyFromCsvCmd.Flags().StringVarP(&csvPath, "csv-path", "c", "", "Path to csv file.")
+	copyFromCsvCmd.Flags().StringVarP(&csvPath, "csv-path", "c", "", "Path to csv file")
 	_ = copyFromCsvCmd.MarkFlagRequired("csv-path")
 
-	copyFromCsvCmd.Flags().StringVarP(&schemaName, "schema-name", "s", "", "Schema name.")
+	copyFromCsvCmd.Flags().StringVarP(&schemaName, "schema-name", "s", "", "Schema name")
 	_ = copyFromCsvCmd.MarkFlagRequired("schema-name")
 
-	copyFromCsvCmd.Flags().StringVarP(&tableName, "table-name", "t", "", "Table name.")
+	copyFromCsvCmd.Flags().StringVarP(&tableName, "table-name", "t", "", "Table name")
 	_ = copyFromCsvCmd.MarkFlagRequired("table-name")
 
 	copyFromCsvCmd.Flags().StringVar(&options, "options", "", "COPY options, seperated by ,")

@@ -10,7 +10,7 @@ import (
 
 var schema2ddlCmd = &cobra.Command{
 	Use:   "schema2ddl",
-	Short: "A brief description of your command",
+	Short: "Genenate DDL SQL from schema definition in YAML",
 	Run: func(cmd *cobra.Command, args []string) {
 		if err := InvokeSchema2ddlCmd(); err != nil {
 			log.Fatalln(err)
@@ -30,6 +30,9 @@ func InvokeSchema2ddlCmd() error {
 	}
 
 	outputFile, err := os.OpenFile(outputPath, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)
+	if err != nil {
+		return err
+	}
 	defer outputFile.Close()
 
 	_, err = outputFile.WriteString(sql)
