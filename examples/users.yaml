@@ -1,0 +1,14 @@
+schema_name: public
+table_name: users
+description: users table
+columns:
+  - name: id
+    data_type: int
+    comment: user id
+  - name: name
+    data_type: TEXT
+    comment: "username"
+  - name: status
+    data_type: TEXT
+primary_keys:
+  - id

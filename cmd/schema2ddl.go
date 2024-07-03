@@ -37,9 +37,6 @@ func InvokeSchema2ddlCmd() error {
 	return err
 }
 
-var schemaPath string
-var outputPath string
-
 func init() {
 	rootCmd.AddCommand(schema2ddlCmd)
 

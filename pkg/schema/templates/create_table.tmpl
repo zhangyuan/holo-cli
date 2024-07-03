@@ -5,7 +5,7 @@ BEGIN;
 
 {{- if .SchemaName }}
 {{ $tableName = printf "%s.\"%s\"" .SchemaName .TableName }}
-{{- end }}
+{{ end -}}
 
 CREATE TABLE {{ $tableName }} (
     {{- range $idx, $column := .Columns }}

@@ -2,7 +2,6 @@ package schema
 
 import (
 	_ "embed"
-	"fmt"
 	"holo-cli/pkg/render"
 	"os"
 
@@ -34,9 +33,6 @@ func LoadSchema(path string) (*Schema, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	fmt.Println(path)
-	fmt.Println(string(bytes))
 	var schema Schema
 	if err := yaml.Unmarshal(bytes, &schema); err != nil {
 		return nil, err
